@@ -14,7 +14,6 @@ Preview do hardware/montagem:
 ---
 Preview do funcionamento:
 
-
 ## 🛠️ Tecnologias e ferramentas
 (principais utilizadas)
 
