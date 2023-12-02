@@ -63,11 +63,29 @@ void atualizarHoraDespertador()
 
 void eventoClickBotao(int botaoAcHora, int botaoDecHora, int botaoAcMin, int botaoDecMin, int botaoDefinirAlarme)
 {
-    botaoAcHora == HIGH ? incrementarHora() : 0;
-    botaoDecHora == HIGH ? decrementarHora() : 0;
-    botaoAcMin == HIGH ? incrementarMinuto() : 0;
-    botaoDecMin == HIGH ? decrementarMinuto() : 0;
-    botaoDefinirAlarme ? atualizarHoraDespertador() : 0;
+     if (botaoAcHora == HIGH)
+    {
+        incrementarHora();
+    }
+
+    if (botaoDecHora == HIGH)
+    {
+        decrementarHora();
+    }
+
+    if (botaoAcMin == HIGH)
+    {
+        incrementarMinuto();
+    }
+
+    if (botaoDecMin == HIGH)
+    {
+        decrementarMinuto();
+    }
+
+    if(botaoDefinirAlarme){
+        atualizarHoraDespertador();
+    }
 }
 
 void atualizarStatusAlarme(int contBuzzer)
