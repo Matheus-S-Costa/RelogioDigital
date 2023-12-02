@@ -8,7 +8,7 @@ O arduino Uno R3 possui 6 pinos de entradas analógicas, 14 entradas e saídas d
 ---
 preview da interface:
 
-![preview](prototipo.PNG)
+![preview](prototipo.png)
 
 
 ---
@@ -19,8 +19,10 @@ preview da interface:
 - Arduino
 - tinkercad
 
+---
+
 # Link
-> https://www.tinkercad.com/things/56Xygg0lGcy-cool-rottis/editel?returnTo=%2Fdashboard%3Ftype%3Dcircuits%26collection%3Dprojects%26id%3D6ha67qF31g4&sharecode=L6iIRyOHFaEiB1-Xh6bRU2-0U21b02C1kb3VhbW_iGw
+> [Relogio Digital tinkercad](https://www.tinkercad.com/things/56Xygg0lGcy-cool-rottis/editel?returnTo=%2Fdashboard%3Ftype%3Dcircuits%26collection%3Dprojects%26id%3D6ha67qF31g4&sharecode=L6iIRyOHFaEiB1-Xh6bRU2-0U21b02C1kb3VhbW_iGw)
 
 # Contatos 📧 
 matheusilva334@gmail.com
