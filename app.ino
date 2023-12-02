@@ -10,11 +10,14 @@ const int pinoAcHora = 2;
 const int pinoDecHora = 3;
 const int pinoAcMin = 4;
 const int pinoDecMin = 5;
+
 const int pinoBuzzer = 6;
-const int pinoContBuzzer = 7;
+const int pinoPararAlarme = 7;
 const int pinoDefinirAlarme = 8;
 
 int tempoDelay = 0;
+
+int comando = 1;
 
 int horaDespertador = 14;
 int minutoDespertador = 14;
@@ -27,181 +30,195 @@ char result[5];
 
 void setup()
 {
-    dis.begin(0x70);
-    pinMode(pinoBuzzer, OUTPUT);
-    pinMode(pinoDefinirAlarme, OUTPUT);
+  dis.begin(0x70);
+  pinMode(pinoBuzzer, OUTPUT);
+  pinMode(pinoDefinirAlarme, OUTPUT);
 }
 
 void loop()
 {
 
-    int botaoAcHora = digitalRead(pinoAcHora);
-    int botaoDecHora = digitalRead(pinoDecHora);
-    int botaoAcMin = digitalRead(pinoAcMin);
-    int botaoDecMin = digitalRead(pinoDecMin);
-    int contBuzzer = digitalRead(pinoContBuzzer);
-    int botaoDefinirAlarme = digitalRead(pinoDefinirAlarme);
+  int botaoAcHora = digitalRead(pinoAcHora);
+  int botaoDecHora = digitalRead(pinoDecHora);
+  int botaoAcMin = digitalRead(pinoAcMin);
+  int botaoDecMin = digitalRead(pinoDecMin);
 
-    eventoClickBotao(botaoAcHora, botaoDecHora, botaoAcMin, botaoDecMin, botaoDefinirAlarme);
-    atualizarStatusAlarme(contBuzzer);
+  int botaoPararAlarme = digitalRead(pinoPararAlarme);
+  int botaoDefinirAlarme = digitalRead(pinoDefinirAlarme);
 
-    atualizarDisplay();
-    delay(196);
-    atualizarTempoDelay();
+  eventoClickBotao(botaoAcHora, botaoDecHora, botaoAcMin, botaoDecMin, botaoDefinirAlarme, botaoPararAlarme);
+  atualizarStatusAlarme(comando);
+
+  atualizarDisplay();
+  delay(196);
+  atualizarTempoDelay();
 }
 
 void atualizarHoraDespertador()
 {
-    if (horas == horaDespertador && minutos == minutoDespertador || !alarmeDefinido)
-    {
-        horaDespertador = horas;
-        minutoDespertador = minutos;
-        alarmeDefinido = true;
-        definirProximoAlarme = false;
-    }
+  if (horas == horaDespertador && minutos == minutoDespertador || !alarmeDefinido)
+  {
+    horaDespertador = horas;     // PARA SIMULAR O FUNCIONAMENTO
+    minutoDespertador = minutos; // PARA SIMULAR O FUNCIOCNAMENTO
+
+    alarmeDefinido = true;
+    definirProximoAlarme = false; // TIRAR VARIAVEL
+  }
 }
 
-void eventoClickBotao(int botaoAcHora, int botaoDecHora, int botaoAcMin, int botaoDecMin, int botaoDefinirAlarme)
+void eventoClickBotao(int botaoAcHora, int botaoDecHora, int botaoAcMin, int botaoDecMin, int botaoDefinirAlarme, int botaoPararAlarme)
 {
-     if (botaoAcHora == HIGH)
-    {
-        incrementarHora();
-    }
+  if (botaoAcHora == HIGH)
+  {
+    incrementarHora();
+  }
 
-    if (botaoDecHora == HIGH)
-    {
-        decrementarHora();
-    }
+  if (botaoDecHora == HIGH)
+  {
+    decrementarHora();
+  }
 
-    if (botaoAcMin == HIGH)
-    {
-        incrementarMinuto();
-    }
+  if (botaoAcMin == HIGH)
+  {
+    incrementarMinuto();
+  }
 
-    if (botaoDecMin == HIGH)
-    {
-        decrementarMinuto();
-    }
+  if (botaoDecMin == HIGH)
+  {
+    decrementarMinuto();
+  }
 
-    if(botaoDefinirAlarme){
-        atualizarHoraDespertador();
-    }
+  if (botaoDefinirAlarme == HIGH)
+  {
+    atualizarHoraDespertador();
+  }
+
+  if (botaoPararAlarme == HIGH)
+  {
+    atualizarStatusAlarme(0);
+  }
 }
 
-void atualizarStatusAlarme(int contBuzzer)
+void atualizarStatusAlarme(int comando)
 {
-    alarmeAtivo = (horas == horaDespertador && minutos == minutoDespertador);
 
-    if ((horas == horaDespertador && minutos != minutoDespertador) || contBuzzer == HIGH)
-    {
-        alarmeAtivo = false;
-    }
+  if (!comando)
+  {
+    alarmeDefinido = false;
+  }
 
-    digitalWrite(pinoBuzzer, alarmeAtivo ? HIGH : LOW);
+  alarmeAtivo = (horas == horaDespertador && minutos == minutoDespertador);
+
+  if ((horas == horaDespertador && minutos != minutoDespertador) || !alarmeDefinido)
+  {
+    alarmeAtivo = false;
+  }
+
+  digitalWrite(pinoBuzzer, alarmeAtivo ? HIGH : LOW);
 }
 
 void incrementarHora()
 {
-    horas++;
-    alarmeAtivo = false;
+  horas++;
+  alarmeAtivo = false;
 
-    if (horas >= 24)
-    {
-        horas = 0;
-    }
+  if (horas >= 24)
+  {
+    horas = 0;
+  }
 
-    delay(100);
+  delay(100);
 }
 
 void decrementarHora()
 {
-    horas--;
-    alarmeAtivo = false;
+  horas--;
+  alarmeAtivo = false;
 
-    if (horas < 0)
-    {
-        horas = 23;
-    }
+  if (horas < 0)
+  {
+    horas = 23;
+  }
 
-    delay(100);
+  delay(100);
 }
 
 void incrementarMinuto()
 {
-    minutos++;
-    alarmeAtivo = false;
+  minutos++;
+  alarmeAtivo = false;
 
-    if (minutos >= 60)
-    {
-        minutos = 0;
-        horas++;
-    }
+  if (minutos >= 60)
+  {
+    minutos = 0;
+    horas++;
+  }
 
-    if (horas >= 24)
-    {
-        horas = 0;
-    }
+  if (horas >= 24)
+  {
+    horas = 0;
+  }
 
-    delay(100);
+  delay(100);
 }
 
 void decrementarMinuto()
 {
-    minutos--;
-    alarmeAtivo = false;
+  minutos--;
+  alarmeAtivo = false;
 
-    if (minutos < 0 && horas != 0)
-    {
-        minutos = 59;
-        horas--;
-    }
+  if (minutos < 0 && horas != 0)
+  {
+    minutos = 59;
+    horas--;
+  }
 
-    if (minutos < 0 && horas == 0)
-    {
-        minutos = 59;
-        horas = 23;
-    }
+  if (minutos < 0 && horas == 0)
+  {
+    minutos = 59;
+    horas = 23;
+  }
 
-    if (horas >= 24)
-    {
-        horas = 0;
-    }
+  if (horas >= 24)
+  {
+    horas = 0;
+  }
 
-    delay(100);
+  delay(100);
 }
 
 void atualizarDisplay()
 {
-    int tempo = horas * 100 + minutos;
-    sprintf(result, "%04d", tempo);
-    dis.println(result);
-    dis.writeDisplay();
+  int tempo = horas * 100 + minutos;
+  sprintf(result, "%04d", tempo);
+  dis.println(result);
+  dis.writeDisplay();
 }
 
 void atualizarTempoDelay()
 {
-    tempoDelay += 240;
+  tempoDelay += 240;
 
-    if (tempoDelay >= 1000)
+  if (tempoDelay >= 1000)
+  {
+    tempoDelay = 0;
+    segundos++;
+
+    if (segundos > 59)
     {
-        tempoDelay = 0;
-        segundos++;
+      segundos = 0;
+      minutos++;
 
-        if (segundos > 59)
+      if (minutos > 59)
+      {
+        horas++;
+
+        if (horas == 24)
         {
-            segundos = 0;
-            minutos++;
-
-            if (minutos > 59)
-            {
-                horas++;
-
-                if (horas == 24)
-                {
-                    horas = 0;
-                    minutos = 0;
-                }
-            }
+          horas = 0;
+          minutos = 0;
         }
+      }
     }
+  }
 }
