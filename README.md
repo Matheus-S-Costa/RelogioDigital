@@ -14,6 +14,11 @@ Preview do hardware/montagem:
 ---
 Preview do funcionamento:
 
+
+https://github.com/Matheus-S-Costa/RelogioDigital/assets/113003157/e4ee4e00-0783-41ef-9306-1b09ac68e4e8
+
+---
+
 ## 🛠️ Tecnologias e ferramentas
 (principais utilizadas)
 
@@ -23,7 +28,7 @@ Preview do funcionamento:
 ---
 
 # Link
-> [Relogio Digital tinkercadf](https://www.tinkercad.com/things/56Xygg0lGcy-cool-rottis/editel?returnTo=%2Fdashboard%3Ftype%3Dcircuits%26collection%3Dprojects%26id%3D6ha67qF31g4&sharecode=L6iIRyOHFaEiB1-Xh6bRU2-0U21b02C1kb3VhbW_iGw)
+> [Relogio Digital tinkercad](https://www.tinkercad.com/things/56Xygg0lGcy-cool-rottis/editel?returnTo=%2Fdashboard%3Ftype%3Dcircuits%26collection%3Dprojects%26id%3D6ha67qF31g4&sharecode=L6iIRyOHFaEiB1-Xh6bRU2-0U21b02C1kb3VhbW_iGw)
 
 # Contatos 📧 
 matheusilva334@gmail.com
