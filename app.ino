@@ -14,6 +14,59 @@ const int pinoDecMin = 5;
 const int pinoBuzzer = 6;
 const int pinoPararAlarme = 7;
 const int pinoDefinirAlarme = 8;
+const int pinoDefinirMusica = 9;
+
+int botaoAcHora;
+int botaoDecHora;
+int botaoAcMin;
+int botaoDecMin;
+
+int botaoPararAlarme;
+int botaoDefinirAlarme;
+int botaoDefinirMusica;
+
+
+const int notaA = 262;
+const int notaB = 294;
+const int notaBb = 142.56; 
+const int notaC = 330;
+const int notaD = 394;
+const int notaE = 198;
+const int notaF = 440;
+const int notaG = 495;
+
+  int melody[] = {
+    notaE, notaD, notaE, notaD, notaE, notaB, notaD, notaC, notaA, 0, notaC, notaE, notaA, notaB, 0, 
+    notaE, notaD, notaE, notaD, notaE, notaB, notaD, notaC, notaA, 0, notaC, notaE, notaA, notaB, 0, 
+    notaE, notaC, notaD, notaE, notaG, notaF, notaE, notaD, notaC, 0, notaE, notaG, notaA, 0, notaF,
+    notaE, notaD, notaE, notaD, notaE, notaB, notaD, notaC, notaA, 0, notaC, notaE, notaA, notaB, 0
+  };
+
+  int tempo[] = {
+    8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 8, 8, 8, 4, 
+    8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 8, 8, 8, 4, 
+    8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 8, 8, 8, 4, 4,
+    8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 8, 8, 8, 4
+  };
+
+  int melodyMario[] = {
+    notaE, notaE, 0, notaE, 0, notaC, notaE, 0, notaG, 0, 0, 0, notaG, 0, 0, 0,
+    notaC, 0, 0, notaG, 0, 0, notaE, 0, 0, notaA, 0, notaB, 0, notaBb, 0, notaA,
+    notaG, 0, notaE, notaG, notaA, 0, notaF, notaG, 0, notaE, 0, notaC, notaD, notaB, 0, 0,
+    notaC, 0, 0, notaG, 0, 0, notaE, 0, 0, notaA, 0, notaB, 0, notaBb, 0, notaA,
+    notaG, 0, notaE, notaG, notaA, 0, notaF, notaG, 0, notaE, 0, notaC, notaD, notaB, 0, 0
+  };
+
+  int tempoMario[] = {
+    8, 8, 4, 8, 4, 8, 8, 4, 8, 4, 4, 4, 8, 4, 4, 4,
+    8, 4, 4, 8, 4, 4, 8, 4, 4, 8, 4, 8, 8, 8, 8, 8,
+    4, 4, 8, 8, 8, 4, 8, 8, 4, 8, 4, 8, 8, 8, 8, 8,
+    8, 4, 4, 8, 4, 4, 8, 4, 4, 8, 4, 8, 8, 8, 8, 8,
+    4, 4, 8, 8, 8, 4, 8, 8, 4, 8, 4, 8, 8, 8, 8, 8
+  };
+
+int notas = sizeof(melody) / sizeof(melody[0]);
+int notasMario = sizeof(melodyMario) / sizeof(melodyMario[0]);
 
 int tempoDelay = 0;
 
@@ -23,7 +76,6 @@ int horaDespertador = 14;
 int minutoDespertador = 14;
 
 bool alarmeAtivo;
-bool definirProximoAlarme;
 bool alarmeDefinido;
 
 char result[5];
@@ -45,12 +97,13 @@ void loop()
 
   int botaoPararAlarme = digitalRead(pinoPararAlarme);
   int botaoDefinirAlarme = digitalRead(pinoDefinirAlarme);
+  int botaoDefinirMusica = digitalRead(pinoDefinirMusica);
 
-  eventoClickBotao(botaoAcHora, botaoDecHora, botaoAcMin, botaoDecMin, botaoDefinirAlarme, botaoPararAlarme);
-  atualizarStatusAlarme(comando);
+  eventoClickBotao(botaoAcHora, botaoDecHora, botaoAcMin, botaoDecMin, botaoDefinirAlarme, botaoPararAlarme, botaoDefinirMusica);
+  
 
   atualizarDisplay();
-  delay(196);
+  delay(250);
   atualizarTempoDelay();
 }
 
@@ -62,11 +115,10 @@ void atualizarHoraDespertador()
     minutoDespertador = minutos; // PARA SIMULAR O FUNCIOCNAMENTO
 
     alarmeDefinido = true;
-    definirProximoAlarme = false; // TIRAR VARIAVEL
   }
 }
 
-void eventoClickBotao(int botaoAcHora, int botaoDecHora, int botaoAcMin, int botaoDecMin, int botaoDefinirAlarme, int botaoPararAlarme)
+void eventoClickBotao(int botaoAcHora, int botaoDecHora, int botaoAcMin, int botaoDecMin, int botaoDefinirAlarme, int botaoPararAlarme, int botaoDefinirMusica)
 {
   if (botaoAcHora == HIGH)
   {
@@ -93,29 +145,35 @@ void eventoClickBotao(int botaoAcHora, int botaoDecHora, int botaoAcMin, int bot
     atualizarHoraDespertador();
   }
 
-  if (botaoPararAlarme == HIGH)
-  {
-    atualizarStatusAlarme(0);
+ 
+  if (botaoDefinirMusica == HIGH || botaoDefinirAlarme){
+    tocarMusica();
+  }
+}
+void alterarMusica(){
+  
+}
+
+void tocarMusica() {
+for (int i = 0; i < notas; i++) {
+  
+  botaoPararAlarme = digitalRead(pinoPararAlarme);
+  if (botaoPararAlarme == HIGH){
+    break;
+  }
+  
+    int duration = 1000 / tempoMario[i];
+    if (melodyMario[i] == 0) {
+      delay(duration);
+    } else {
+      tone(pinoBuzzer, melodyMario[i], duration);
+      delay(duration); // Adiciona um pequeno delay entre as notas
+    }
+    noTone(pinoBuzzer);
+    delay(50); // Pequeno delay entre as notas para separá-las
   }
 }
 
-void atualizarStatusAlarme(int comando)
-{
-
-  if (!comando)
-  {
-    alarmeDefinido = false;
-  }
-
-  alarmeAtivo = (horas == horaDespertador && minutos == minutoDespertador);
-
-  if ((horas == horaDespertador && minutos != minutoDespertador) || !alarmeDefinido)
-  {
-    alarmeAtivo = false;
-  }
-
-  digitalWrite(pinoBuzzer, alarmeAtivo ? HIGH : LOW);
-}
 
 void incrementarHora()
 {
@@ -126,8 +184,6 @@ void incrementarHora()
   {
     horas = 0;
   }
-
-  delay(100);
 }
 
 void decrementarHora()
@@ -139,8 +195,6 @@ void decrementarHora()
   {
     horas = 23;
   }
-
-  delay(100);
 }
 
 void incrementarMinuto()
@@ -158,8 +212,6 @@ void incrementarMinuto()
   {
     horas = 0;
   }
-
-  delay(100);
 }
 
 void decrementarMinuto()
@@ -183,8 +235,6 @@ void decrementarMinuto()
   {
     horas = 0;
   }
-
-  delay(100);
 }
 
 void atualizarDisplay()
@@ -197,7 +247,7 @@ void atualizarDisplay()
 
 void atualizarTempoDelay()
 {
-  tempoDelay += 240;
+  tempoDelay += 250;
 
   if (tempoDelay >= 1000)
   {
