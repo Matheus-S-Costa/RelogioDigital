@@ -21,62 +21,69 @@ int botaoDecHora;
 int botaoAcMin;
 int botaoDecMin;
 
-int botaoPararAlarme;
+int botaoDesativarAlarme;
 int botaoDefinirAlarme;
 int botaoDefinirMusica;
 
+int musicaAtual = 1;
 
 const int notaA = 262;
 const int notaB = 294;
-const int notaBb = 142.56; 
+const int notaBb = 143;
 const int notaC = 330;
 const int notaD = 394;
 const int notaE = 198;
 const int notaF = 440;
 const int notaG = 495;
 
-  int melody[] = {
-    notaE, notaD, notaE, notaD, notaE, notaB, notaD, notaC, notaA, 0, notaC, notaE, notaA, notaB, 0, 
-    notaE, notaD, notaE, notaD, notaE, notaB, notaD, notaC, notaA, 0, notaC, notaE, notaA, notaB, 0, 
+int melodia1[] = {
+    notaE, notaD, notaE, notaD, notaE, notaB, notaD, notaC, notaA, 0, notaC, notaE, notaA, notaB, 0,
+    notaE, notaD, notaE, notaD, notaE, notaB, notaD, notaC, notaA, 0, notaC, notaE, notaA, notaB, 0,
     notaE, notaC, notaD, notaE, notaG, notaF, notaE, notaD, notaC, 0, notaE, notaG, notaA, 0, notaF,
-    notaE, notaD, notaE, notaD, notaE, notaB, notaD, notaC, notaA, 0, notaC, notaE, notaA, notaB, 0
-  };
+    notaE, notaD, notaE, notaD, notaE, notaB, notaD, notaC, notaA, 0, notaC, notaE, notaA, notaB, 0};
 
-  int tempo[] = {
-    8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 8, 8, 8, 4, 
-    8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 8, 8, 8, 4, 
+int tempoMelodia1[] = {
+    8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 8, 8, 8, 4,
+    8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 8, 8, 8, 4,
     8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 8, 8, 8, 4, 4,
-    8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 8, 8, 8, 4
-  };
+    8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 8, 8, 8, 4};
 
-  int melodyMario[] = {
+int melodia2[] = {
     notaE, notaE, 0, notaE, 0, notaC, notaE, 0, notaG, 0, 0, 0, notaG, 0, 0, 0,
     notaC, 0, 0, notaG, 0, 0, notaE, 0, 0, notaA, 0, notaB, 0, notaBb, 0, notaA,
     notaG, 0, notaE, notaG, notaA, 0, notaF, notaG, 0, notaE, 0, notaC, notaD, notaB, 0, 0,
     notaC, 0, 0, notaG, 0, 0, notaE, 0, 0, notaA, 0, notaB, 0, notaBb, 0, notaA,
-    notaG, 0, notaE, notaG, notaA, 0, notaF, notaG, 0, notaE, 0, notaC, notaD, notaB, 0, 0
-  };
+    notaG, 0, notaE, notaG, notaA, 0, notaF, notaG, 0, notaE, 0, notaC, notaD, notaB, 0, 0};
 
-  int tempoMario[] = {
+int tempoMelodia2[] = {
     8, 8, 4, 8, 4, 8, 8, 4, 8, 4, 4, 4, 8, 4, 4, 4,
     8, 4, 4, 8, 4, 4, 8, 4, 4, 8, 4, 8, 8, 8, 8, 8,
     4, 4, 8, 8, 8, 4, 8, 8, 4, 8, 4, 8, 8, 8, 8, 8,
     8, 4, 4, 8, 4, 4, 8, 4, 4, 8, 4, 8, 8, 8, 8, 8,
-    4, 4, 8, 8, 8, 4, 8, 8, 4, 8, 4, 8, 8, 8, 8, 8
-  };
+    4, 4, 8, 8, 8, 4, 8, 8, 4, 8, 4, 8, 8, 8, 8, 8};
 
-int notas = sizeof(melody) / sizeof(melody[0]);
-int notasMario = sizeof(melodyMario) / sizeof(melodyMario[0]);
+int melodia3[] = {
+    notaE, 0, notaD, 0, notaC, 0, notaB, 0,
+    notaA, 0, notaB, 0, notaC, 0, notaD, 0,
+    notaE, 0, notaD, 0, notaC, 0, notaB, 0,
+    notaA, 0, notaB, 0, notaD, 0, notaD, 0, notaC, 0};
+
+int tempoMelodia3[] = {
+    4, 2, 4, 2, 4, 2, 4, 2,
+    4, 2, 4, 2, 4, 2, 4, 2,
+    4, 2, 4, 2, 4, 2, 4, 2,
+    4, 2, 4, 2, 4, 2, 4, 2, 4, 2};
+
+int qtdNotas1 = sizeof(melodia1) / sizeof(melodia1[0]);
+int qtdNotas2 = sizeof(melodia2) / sizeof(melodia2[0]);
+int qtdNotas3 = sizeof(melodia3) / sizeof(melodia3[0]);
 
 int tempoDelay = 0;
-
-int comando = 1;
 
 int horaDespertador = 14;
 int minutoDespertador = 14;
 
-bool alarmeAtivo;
-bool alarmeDefinido;
+bool alarmeDefinido = false;
 
 char result[5];
 
@@ -90,95 +97,117 @@ void setup()
 void loop()
 {
 
-  int botaoAcHora = digitalRead(pinoAcHora);
-  int botaoDecHora = digitalRead(pinoDecHora);
-  int botaoAcMin = digitalRead(pinoAcMin);
-  int botaoDecMin = digitalRead(pinoDecMin);
+  eventoClickBotao();
 
-  int botaoPararAlarme = digitalRead(pinoPararAlarme);
-  int botaoDefinirAlarme = digitalRead(pinoDefinirAlarme);
-  int botaoDefinirMusica = digitalRead(pinoDefinirMusica);
-
-  eventoClickBotao(botaoAcHora, botaoDecHora, botaoAcMin, botaoDecMin, botaoDefinirAlarme, botaoPararAlarme, botaoDefinirMusica);
-  
-
+  monitorarAlarme();
   atualizarDisplay();
-  delay(250);
-  atualizarTempoDelay();
+
+  delay(200);
+  configurarTempoRelogio(200);
 }
 
-void atualizarHoraDespertador()
+void definirHoraAlarme()
 {
-  if (horas == horaDespertador && minutos == minutoDespertador || !alarmeDefinido)
-  {
-    horaDespertador = horas;     // PARA SIMULAR O FUNCIONAMENTO
-    minutoDespertador = minutos; // PARA SIMULAR O FUNCIOCNAMENTO
+  horaDespertador = horas;
+  minutoDespertador = minutos;
 
-    alarmeDefinido = true;
-  }
+  alarmeDefinido = true;
 }
 
-void eventoClickBotao(int botaoAcHora, int botaoDecHora, int botaoAcMin, int botaoDecMin, int botaoDefinirAlarme, int botaoPararAlarme, int botaoDefinirMusica)
+void monitorarAlarme()
 {
-  if (botaoAcHora == HIGH)
+  if (alarmeDefinido && horas == horaDespertador && minutos == minutoDespertador)
   {
-    incrementarHora();
-  }
 
-  if (botaoDecHora == HIGH)
-  {
-    decrementarHora();
-  }
-
-  if (botaoAcMin == HIGH)
-  {
-    incrementarMinuto();
-  }
-
-  if (botaoDecMin == HIGH)
-  {
-    decrementarMinuto();
-  }
-
-  if (botaoDefinirAlarme == HIGH)
-  {
-    atualizarHoraDespertador();
-  }
-
- 
-  if (botaoDefinirMusica == HIGH || botaoDefinirAlarme){
-    tocarMusica();
-  }
-}
-void alterarMusica(){
-  
-}
-
-void tocarMusica() {
-for (int i = 0; i < notas; i++) {
-  
-  botaoPararAlarme = digitalRead(pinoPararAlarme);
-  if (botaoPararAlarme == HIGH){
-    break;
-  }
-  
-    int duration = 1000 / tempoMario[i];
-    if (melodyMario[i] == 0) {
-      delay(duration);
-    } else {
-      tone(pinoBuzzer, melodyMario[i], duration);
-      delay(duration); // Adiciona um pequeno delay entre as notas
+    if (musicaAtual == 1)
+    {
+      tocarMusica(melodia1, tempoMelodia1, qtdNotas1);
     }
-    noTone(pinoBuzzer);
-    delay(50); // Pequeno delay entre as notas para separá-las
+    else if (musicaAtual == 2)
+    {
+      tocarMusica(melodia2, tempoMelodia2, qtdNotas2);
+    }
+    else
+    {
+      tocarMusica(melodia3, tempoMelodia3, qtdNotas3);
+    }
   }
 }
 
+void alterarMusica()
+{
+  if (musicaAtual != 3)
+  {
+    musicaAtual++;
+  }
+  else
+  {
+    musicaAtual = 1;
+  }
+}
+
+void tocarMusica(int *melodia, int *tempoMeloadia, int qtdNotasMelodia)
+{
+  unsigned long tempoInicial = 0;
+  tempoInicial = millis();
+  int indice = 0;
+
+  while (true)
+  {
+
+    int duracao = 1000 / tempoMeloadia[indice];
+    if (melodia[indice] == 0)
+    {
+      delay(duracao);
+    }
+    else
+    {
+      tone(pinoBuzzer, melodia[indice], duracao);
+    }
+
+    botaoAcHora = digitalRead(pinoAcHora);
+    botaoDecHora = digitalRead(pinoDecHora);
+    botaoAcMin = digitalRead(pinoAcMin);
+    botaoDecMin = digitalRead(pinoDecMin);
+
+    botaoDesativarAlarme = digitalRead(pinoPararAlarme);
+
+    if (botaoDesativarAlarme == HIGH)
+    {
+      unsigned long tempoFinal = millis() - tempoInicial;
+      segundos += (tempoFinal / 1000);
+      alarmeDefinido = false;
+      break;
+    }
+
+    if (botaoAcHora == HIGH || botaoAcMin == HIGH || botaoDecHora == HIGH || botaoDecMin == HIGH)
+    {
+      unsigned long tempoFinal = millis() - tempoInicial;
+      segundos += (tempoFinal / 1000);
+
+      break;
+    }
+
+    indice++;
+
+    if (indice >= qtdNotasMelodia)
+    {
+      indice = 0;
+    }
+
+    unsigned long tempoFinal = millis() - tempoInicial;
+
+    if (tempoFinal >= 60000)
+    {
+      incrementarMinuto();
+      break;
+    }
+  }
+}
 
 void incrementarHora()
 {
   horas++;
-  alarmeAtivo = false;
 
   if (horas >= 24)
   {
@@ -189,8 +218,6 @@ void incrementarHora()
 void decrementarHora()
 {
   horas--;
-  alarmeAtivo = false;
-
   if (horas < 0)
   {
     horas = 23;
@@ -200,7 +227,6 @@ void decrementarHora()
 void incrementarMinuto()
 {
   minutos++;
-  alarmeAtivo = false;
 
   if (minutos >= 60)
   {
@@ -217,7 +243,6 @@ void incrementarMinuto()
 void decrementarMinuto()
 {
   minutos--;
-  alarmeAtivo = false;
 
   if (minutos < 0 && horas != 0)
   {
@@ -245,9 +270,9 @@ void atualizarDisplay()
   dis.writeDisplay();
 }
 
-void atualizarTempoDelay()
+void configurarTempoRelogio(int tempo)
 {
-  tempoDelay += 250;
+  tempoDelay += tempo;
 
   if (tempoDelay >= 1000)
   {
@@ -270,5 +295,47 @@ void atualizarTempoDelay()
         }
       }
     }
+  }
+}
+
+void eventoClickBotao()
+{
+
+  botaoAcHora = digitalRead(pinoAcHora);
+  botaoDecHora = digitalRead(pinoDecHora);
+  botaoAcMin = digitalRead(pinoAcMin);
+  botaoDecMin = digitalRead(pinoDecMin);
+
+  botaoDefinirAlarme = digitalRead(pinoDefinirAlarme);
+  botaoDefinirMusica = digitalRead(pinoDefinirMusica);
+
+  if (botaoAcHora == HIGH)
+  {
+    incrementarHora();
+  }
+
+  if (botaoDecHora == HIGH)
+  {
+    decrementarHora();
+  }
+
+  if (botaoAcMin == HIGH)
+  {
+    incrementarMinuto();
+  }
+
+  if (botaoDecMin == HIGH)
+  {
+    decrementarMinuto();
+  }
+
+  if (botaoDefinirAlarme == HIGH)
+  {
+    definirHoraAlarme();
+  }
+
+  if (botaoDefinirMusica == HIGH)
+  {
+    alterarMusica();
   }
 }
