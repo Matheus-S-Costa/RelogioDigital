@@ -10,7 +10,6 @@ Preview do hardware/montagem:
 
 ![preview](./assets/prototipo.png)
 
-
 ---
 Preview do funcionamento:
 
